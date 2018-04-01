@@ -16,9 +16,8 @@ class Role(Document):
 
 
 class Employee(Document):
-    meta = {"collection": 'role'}
+    meta = {"collection": 'employee'}
     name = StringField()
     hired_on = DateTimeField(default=datetime.now)
     department = ReferenceField(Department)
     role = ReferenceField(Role)
-    
