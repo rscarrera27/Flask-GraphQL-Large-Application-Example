@@ -21,5 +21,6 @@ app.add_url_rule(
 def shutdown_session(exception=None):
     db_session.remove()
 
+
 if __name__ == '__main__':
     app.run()
