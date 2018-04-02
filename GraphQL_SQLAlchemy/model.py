@@ -18,6 +18,12 @@ class Department(Base):
     name = Column(String)
 
 
+class Role(Base):
+    __tablename__ = 'role'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+
 class Employee(Base):
     __tablename__ = 'employee'
     id = Column(Integer, primary_key=True)
@@ -26,6 +32,12 @@ class Employee(Base):
     department_id = Column(Integer, ForeignKey('department.id'))
     department = relationship(
         Department,
+        backref=backref('employees',
+                        uselist=True,
+                        cascade='delete,all'))
+    role_id = Column(Integer, ForeignKey('role.id'))
+    role = relationship(
+        Role,
         backref=backref('employees',
                         uselist=True,
                         cascade='delete,all'))
