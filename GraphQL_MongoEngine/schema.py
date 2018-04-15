@@ -140,3 +140,29 @@ class DepartmentQuery(graphene.ObjectType):
         return construct(DepartmentField, department)
 
 
+class RoleQuery(graphene.ObjectType):
+
+    role = graphene.Field(RoleField,
+                          description="query with role name",
+                          role=graphene.Argument(graphene.String))
+
+    def resolve_role(self, args, info):
+        role = RoleModel.objects.get(name=args.get('role'))
+        role = EmployeeModel.objects.get(role=role)
+
+        return construct(DepartmentField, role)
+
+    def resolve_department(self, args, info):
+        department = DepartmentModel.objects.get(name=args.get('department'))
+        department = EmployeeModel.objects.get(department=department)
+
+        return construct(EmployeeField, department)
+
+    def resolve_name(self, args, info):
+        name = EmployeeModel.objects.get(name=args.get('name'))
+
+        return construct(EmployeeField, name)
+
+
+
+
