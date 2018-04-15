@@ -128,41 +128,46 @@ class EmployeeMutation(graphene.Mutation):
             abort(404)
 
 
-class DepartmentQuery(graphene.ObjectType):
+class Query(graphene.ObjectType):
 
     department = graphene.Field(DepartmentField,
-                                description="query with department name",
-                                department=graphene.Argument(graphene.String))
+                                description="Department Query",
+                                name=graphene.Argument(graphene.String))
+
+    role = graphene.Field(RoleModel,
+                          description="Role Query",
+                          name=graphene.Argument(graphene.String))
+
+    employee = graphene.Field(EmployeeField,
+                              description="Employee Query",
+                              name=graphene.Argument(graphene.String),
+                              role=graphene.Argument(graphene.String),
+                              department=graphene.Argument(graphene.String))
+
+    hello = graphene.String(name=graphene.String(default_value="world"))
 
     def resolve_department(self, args, info):
         department = DepartmentModel.objects.get(name=args.get('department'))
 
         return construct(DepartmentField, department)
 
-
-class RoleQuery(graphene.ObjectType):
-
-    role = graphene.Field(RoleField,
-                          description="query with role name",
-                          role=graphene.Argument(graphene.String))
-
     def resolve_role(self, args, info):
         role = RoleModel.objects.get(name=args.get('role'))
-        role = EmployeeModel.objects.get(role=role)
 
-        return construct(DepartmentField, role)
+        return construct(RoleField, role)
 
-    def resolve_department(self, args, info):
-        department = DepartmentModel.objects.get(name=args.get('department'))
-        department = EmployeeModel.objects.get(department=department)
+    def resolve_employee(self, args, info):
+        pass
 
-        return construct(EmployeeField, department)
+class Mutation(graphene.ObjectType):
+    create_employee = graphene.Field(EmployeeMutation,
+                                     description="Create New Employee")
 
-    def resolve_name(self, args, info):
-        name = EmployeeModel.objects.get(name=args.get('name'))
+    create_role = graphene.Field(RoleMutation,
+                                 description="Create New Role")
 
-        return construct(EmployeeField, name)
+    create_deaprtment = graphene.Field(DepartmentMutation,
+                                       description="Create New Department")
 
 
-
-
+schema = graphene.Schema(query=Query, mutation=Mutation)
