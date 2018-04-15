@@ -126,3 +126,17 @@ class EmployeeMutation(graphene.Mutation):
 
         except (MultipleObjectsReturned, DoesNotExist, ValidationError):
             abort(404)
+
+
+class DepartmentQuery(graphene.ObjectType):
+
+    department = graphene.Field(DepartmentField,
+                                description="query with department name",
+                                department=graphene.Argument(graphene.String))
+
+    def resolve_department(self, args, info):
+        department = DepartmentModel.objects.get(name=args.get('department'))
+
+        return construct(DepartmentField, department)
+
+
