@@ -91,6 +91,7 @@ class EmployeeMutation(graphene.Mutation):
         department = graphene.String()
         role = graphene.String()
 
+    ok = graphene.Boolean()
     employee = graphene.Field(EmployeeField)
 
     def mutate(self, info, name, department, role):
@@ -106,7 +107,6 @@ class EmployeeMutation(graphene.Mutation):
             print("line 112: {}".format(department))
             print("line 113: {}".format(role))
 
-
             employee_data = dict({
                 'name': name,
                 'department': department,
@@ -119,7 +119,7 @@ class EmployeeMutation(graphene.Mutation):
             print("line 120: {}".format(employee.to_mongo().items()))
             employee.save()
 
-            return EmployeeMutation(construct(EmployeeField, employee))
+            return EmployeeMutation(employee=construct(EmployeeField, employee), ok=True)
 
         except (MultipleObjectsReturned, DoesNotExist, ValidationError):
             abort(404)
@@ -132,6 +132,9 @@ class Query(graphene.ObjectType):
 
     role = graphene.List(of_type=RoleField,
                          name=graphene.String(default_value="all"))
+
+    employee = graphene.List(of_type=EmployeeField,
+                             name=graphene.String(default_value="all"))
 
     hello = graphene.String(name=graphene.String(default_value="world"))
 
@@ -154,6 +157,16 @@ class Query(graphene.ObjectType):
             role = RoleModel.objects.get(name=name)
             print("line 160: {}".format(role))
             return [construct(RoleField, role)]
+
+    def resolve_employee(self, info, name):
+        if name == "all":
+            employee = [construct(EmployeeField, object) for object in EmployeeModel.objects]
+            print("line 157: {}".format(employee))
+            return employee
+        else:
+            employee = EmployeeModel.objects.get(name=name)
+            print("line 160: {}".format(employee))
+            return [construct(EmployeeField, employee)]
 
     def resolve_hello(self, info, name):
         return 'Hello ' + name
