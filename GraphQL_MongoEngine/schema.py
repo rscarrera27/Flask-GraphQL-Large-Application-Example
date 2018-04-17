@@ -18,30 +18,13 @@ def construct(object_type, mongo_obj, referenced_fields=None):
     :return: GraphQL Field that _id field changed to id
     """
     field_names = list(object_type._meta.fields)
-    print("line 21: {}".format(field_names))
 
     if 'id' in field_names:
         field_names.append('_id')
-    print("line 24: ".format(mongo_obj))
     kwargs = {attr: val for attr, val in mongo_obj.to_mongo().items() if attr in field_names}
 
     if '_id' in kwargs:
         kwargs['id'] = str(kwargs.pop('_id'))
-    print("ine 31: {}".format(kwargs))
-
-    if isinstance(referenced_fields, list):
-        for field in mongo_obj:
-            for model in referenced_fields:
-                print(model.objects().first())
-                if type(mongo_obj[field]) == type(model.objects().first()):
-                    # result = {attr: val for attr, val in mongo_obj[field].to_mongo().items() if attr != "_id"}
-                    # kwargs[field] = result
-                    kwargs['department'] = construct(DepartmentField, mongo_obj[field])
-    elif referenced_fields is None:
-        pass
-    else:
-        raise TypeError("referenced_field accepts only dictionary, given: {} ".format(type(referenced_fields)))
-
     return object_type(**kwargs)
 
 
@@ -60,7 +43,7 @@ class EmployeeField(graphene.ObjectType):
     name = graphene.String()
     hired_on = graphene.DateTime()
     department = graphene.Field(DepartmentField)
-    role = graphene.String()
+    role = graphene.Field(RoleField)
 
 
 class DepartmentMutation(graphene.Mutation):
@@ -72,7 +55,6 @@ class DepartmentMutation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, info, _name):
-        print(_name)
         name = dict({
             "name": _name
         })
@@ -91,9 +73,7 @@ class RoleMutation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, info, name):
-        print(name)
         role_data = name
-        print(role_data)
         role = RoleModel.objects.create(**role_data)
         role.save()
 
@@ -120,19 +100,13 @@ class EmployeeMutation(graphene.Mutation):
             department = DepartmentModel.objects.get(name=department_name).name
             role = RoleModel.objects.get(name=role_name).name
 
-            print("line 112: {}".format(department))
-            print("line 113: {}".format(role))
-
             employee_data = dict({
                 'name': name,
                 'department': department,
                 'role': role
             })
 
-            print("line 117: {}".format(employee_data))
-
             employee = EmployeeModel(**employee_data)
-            print("line 120: {}".format(employee.to_mongo().items()))
             employee.save()
 
             return EmployeeMutation(employee=construct(EmployeeField, employee), ok=True)
@@ -157,36 +131,44 @@ class Query(graphene.ObjectType):
     def resolve_department(self, info, name):
         if name == "all":
             department = [construct(DepartmentField, object) for object in DepartmentModel.objects]
-            print("line 157: {}".format(department))
             return department
         else:
             department = DepartmentModel.objects.get(name=name)
-            print("line 160: {}".format(DepartmentField))
             return [construct(DepartmentField, department)]
 
     def resolve_role(self, info, name):
         if name == "all":
             role = [construct(RoleField, object) for object in RoleModel.objects]
-            print("line 157: {}".format(role))
             return role
         else:
             role = RoleModel.objects.get(name=name)
-            print("line 160: {}".format(role))
             return [construct(RoleField, role)]
 
     def resolve_employee(self, info, name):
-        referenced_fields = [
-            DepartmentModel,
-            RoleModel
-        ]
+
+        def make_employee(employee):
+
+            department = DepartmentModel.objects.get(id=employee.department.id)
+            department = construct(DepartmentField, department)
+
+            role = RoleModel.objects.get(id=employee.role.id)
+            role = construct(RoleField, role)
+
+            employee = construct(EmployeeField, employee)
+
+            employee.department = department
+            employee.role = role
+
+            return employee
+
         if name == "all":
-            employee = [construct(EmployeeField, object, referenced_fields=referenced_fields) for object in EmployeeModel.objects]
-            print("line 157: {}".format(employee))
+            employee = [make_employee(document) for document in EmployeeModel.objects]
             return employee
         else:
             employee = EmployeeModel.objects.get(name=name)
-            print("line 160: {}".format(employee))
-            return [construct(object_type=EmployeeField, mongo_obj=employee, referenced_fields=referenced_fields)]
+            employee = make_employee(employee)
+
+            return [employee]
 
     def resolve_hello(self, info, name):
         return 'Hello ' + name
