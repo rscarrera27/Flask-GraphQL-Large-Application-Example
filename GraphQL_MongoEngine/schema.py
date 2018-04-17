@@ -20,13 +20,6 @@ def construct(object_type, mongo_obj, referenced_fields=None):
     field_names = list(object_type._meta.fields)
     print("line 21: {}".format(field_names))
 
-    if referenced_fields is not None:
-        pass
-    elif isinstance(referenced_fields, dict):
-        pass
-    else:
-        raise TypeError("referenced_field accepts only dictionary, given: {} ".format(type(referenced_fields)))
-
     if 'id' in field_names:
         field_names.append('_id')
     print("line 24: ".format(mongo_obj))
@@ -35,6 +28,18 @@ def construct(object_type, mongo_obj, referenced_fields=None):
     if '_id' in kwargs:
         kwargs['id'] = str(kwargs.pop('_id'))
     print("ine 31: {}".format(kwargs))
+
+    if isinstance(referenced_fields, list):
+        for field in mongo_obj:
+            for model in referenced_fields:
+                print(model.objects().first())
+                if type(mongo_obj[field]) == type(model.objects().first()):
+                    result = {attr: val for attr, val in mongo_obj[field].to_mongo().items() if attr != "_id"}
+                    kwargs[field] = result
+    elif referenced_fields is None:
+        pass
+    else:
+        raise TypeError("referenced_field accepts only dictionary, given: {} ".format(type(referenced_fields)))
 
     return object_type(**kwargs)
 
@@ -169,14 +174,18 @@ class Query(graphene.ObjectType):
             return [construct(RoleField, role)]
 
     def resolve_employee(self, info, name):
+        referenced_fields = [
+            DepartmentModel,
+            RoleModel
+        ]
         if name == "all":
-            employee = [construct(EmployeeField, object) for object in EmployeeModel.objects]
+            employee = [construct(EmployeeField, object, referenced_fields=referenced_fields) for object in EmployeeModel.objects]
             print("line 157: {}".format(employee))
             return employee
         else:
             employee = EmployeeModel.objects.get(name=name)
             print("line 160: {}".format(employee))
-            return [construct(EmployeeField, employee)]
+            return [construct(object_type=EmployeeField, mongo_obj=employee, referenced_fields=referenced_fields)]
 
     def resolve_hello(self, info, name):
         return 'Hello ' + name
