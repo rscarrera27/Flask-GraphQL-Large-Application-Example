@@ -34,8 +34,9 @@ def construct(object_type, mongo_obj, referenced_fields=None):
             for model in referenced_fields:
                 print(model.objects().first())
                 if type(mongo_obj[field]) == type(model.objects().first()):
-                    result = {attr: val for attr, val in mongo_obj[field].to_mongo().items() if attr != "_id"}
-                    kwargs[field] = result
+                    # result = {attr: val for attr, val in mongo_obj[field].to_mongo().items() if attr != "_id"}
+                    # kwargs[field] = result
+                    kwargs['department'] = construct(DepartmentField, mongo_obj[field])
     elif referenced_fields is None:
         pass
     else:
@@ -58,7 +59,7 @@ class EmployeeField(graphene.ObjectType):
     id = graphene.String()
     name = graphene.String()
     hired_on = graphene.DateTime()
-    department = graphene.String()
+    department = graphene.Field(DepartmentField)
     role = graphene.String()
 
 
