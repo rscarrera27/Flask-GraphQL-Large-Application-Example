@@ -148,13 +148,13 @@ class Query(graphene.ObjectType):
 
         def make_employee(employee):
 
+            employee = construct(EmployeeField, employee)
+
             department = DepartmentModel.objects.get(id=employee.department.id)
             department = construct(DepartmentField, department)
 
             role = RoleModel.objects.get(id=employee.role.id)
             role = construct(RoleField, role)
-
-            employee = construct(EmployeeField, employee)
 
             employee.department = department
             employee.role = role
