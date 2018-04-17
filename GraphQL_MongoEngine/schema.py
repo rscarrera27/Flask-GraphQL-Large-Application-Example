@@ -3,6 +3,7 @@ import graphene
 import trafaret as t
 from mongoengine import *
 from flask import *
+from bson import ObjectId
 from model import Department as DepartmentModel
 from model import Employee as EmployeeModel
 from model import Role as RoleModel
@@ -10,7 +11,7 @@ from model import Role as RoleModel
 logger = logging.getLogger(__package__)
 
 
-def construct(object_type, mongo_obj):
+def construct(object_type, mongo_obj, referenced_fields=None):
     """
     :param object_type: GraphQL Field class
     :param mongo_obj: mongoengine object
@@ -18,13 +19,22 @@ def construct(object_type, mongo_obj):
     """
     field_names = list(object_type._meta.fields)
     print("line 21: {}".format(field_names))
+
+    if referenced_fields is not None:
+        pass
+    elif isinstance(referenced_fields, dict):
+        pass
+    else:
+        raise TypeError("referenced_field accepts only dictionary, given: {} ".format(type(referenced_fields)))
+
     if 'id' in field_names:
         field_names.append('_id')
     print("line 24: ".format(mongo_obj))
     kwargs = {attr: val for attr, val in mongo_obj.to_mongo().items() if attr in field_names}
+
     if '_id' in kwargs:
         kwargs['id'] = str(kwargs.pop('_id'))
-    print("ine 27: {}".format(kwargs))
+    print("ine 31: {}".format(kwargs))
 
     return object_type(**kwargs)
 
