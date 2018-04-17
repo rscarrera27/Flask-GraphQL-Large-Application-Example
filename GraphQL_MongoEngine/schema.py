@@ -11,7 +11,7 @@ from model import Role as RoleModel
 logger = logging.getLogger(__package__)
 
 
-def construct(object_type, mongo_obj, referenced_fields=None):
+def construct(object_type, mongo_obj):
     """
     :param object_type: GraphQL Field class
     :param mongo_obj: mongoengine object
@@ -97,8 +97,8 @@ class EmployeeMutation(graphene.Mutation):
         role_name = role
 
         try:
-            department = DepartmentModel.objects.get(name=department_name).name
-            role = RoleModel.objects.get(name=role_name).name
+            department = DepartmentModel.objects.get(name=department_name)
+            role = RoleModel.objects.get(name=role_name)
 
             employee_data = dict({
                 'name': name,
@@ -109,7 +109,11 @@ class EmployeeMutation(graphene.Mutation):
             employee = EmployeeModel(**employee_data)
             employee.save()
 
-            return EmployeeMutation(employee=construct(EmployeeField, employee), ok=True)
+            employee = construct(EmployeeField, employee)
+            employee.department = construct(DepartmentField, department)
+            employee.role = construct(RoleField, role)
+
+            return EmployeeMutation(employee=employee, ok=True)
 
         except (MultipleObjectsReturned, DoesNotExist, ValidationError):
             abort(404)
@@ -148,13 +152,13 @@ class Query(graphene.ObjectType):
 
         def make_employee(employee):
 
-            employee = construct(EmployeeField, employee)
-
             department = DepartmentModel.objects.get(id=employee.department.id)
             department = construct(DepartmentField, department)
 
             role = RoleModel.objects.get(id=employee.role.id)
             role = construct(RoleField, role)
+
+            employee = construct(EmployeeField, employee)
 
             employee.department = department
             employee.role = role
