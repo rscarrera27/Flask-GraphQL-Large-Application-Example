@@ -1,9 +1,7 @@
 import logging
 import graphene
-import trafaret as t
 from mongoengine import *
 from flask import *
-from bson import ObjectId
 from model import Department as DepartmentModel
 from model import Employee as EmployeeModel
 from model import Role as RoleModel
