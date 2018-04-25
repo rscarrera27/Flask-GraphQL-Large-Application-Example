@@ -1,4 +1,4 @@
-from database import init_db
+from model.__init__ import init_db
 from flask import Flask, request, jsonify
 from flask_graphql import GraphQLView
 from GraphQL_with_JWT.schema import schema

@@ -1,4 +1,4 @@
-from database import init_db
+from model import init_db
 from flask import Flask
 from flask_graphql import GraphQLView
 from schema import schema
