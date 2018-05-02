@@ -1,6 +1,4 @@
 import graphene
-from mutation import Mutation
-from query import Query
 
 
 class DepartmentField(graphene.ObjectType):
@@ -19,9 +17,3 @@ class EmployeeField(graphene.ObjectType):
     hired_on = graphene.DateTime()
     department = graphene.Field(DepartmentField)
     role = graphene.Field(RoleField)
-
-
-schema = graphene.Schema(query=Query, mutation=Mutation)
-
-# result = schema.execute('{ department{ name } }')
-# print(result.data)

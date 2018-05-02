@@ -2,7 +2,7 @@ import graphene
 from mongoengine import MultipleObjectsReturned, DoesNotExist, ValidationError
 from werkzeug.exceptions import abort
 from model import Department as DepartmentModel, Role as RoleModel, Employee as EmployeeModel
-from schema import DepartmentField, RoleField, EmployeeField
+from graphql_view.fields import DepartmentField, RoleField, EmployeeField
 from util.constructor import construct
 
 
