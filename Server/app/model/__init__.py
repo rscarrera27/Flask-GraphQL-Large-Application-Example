@@ -1,27 +1,34 @@
 from mongoengine import connect
 
-from app.model import Department
-from app.model import Employee
-from app.model import Role
+from app.model.DepartmentModel import DepartmentModel
+from app.model.EmployeeModel import EmployeeModel
+from app.model.RoleModel import RoleModel
 
-connect('graphene-mongo-example', host='mongomock://localhost', alias='default')
+# connect('graphene-mongo-example', host='mongomock://localhost', alias='default')
 
 
-def init_db():
+class Mongo:
+    def __init__(self, app):
+        if app is not None:
+            self.init_db(app)
 
-    engineering = Department(name="engineering")
-    hr = Department(name="Human Resources")
+    def init_db(self, app):
+        settings = app.config['MONGODB_SETTINGS']
 
-    [dpt.save() for dpt in [engineering, hr]]
+        connect(**settings)
 
-    manager = Role(name="manager")
-    engineer = Role(name="engineer")
+        engineering = DepartmentModel(name="engineering")
+        hr = DepartmentModel(name="Human Resources")
 
-    [role.save() for role in [engineer, manager]]
+        [dpt.save() for dpt in [engineering, hr]]
 
-    peter = Employee(name='Peter', department=engineering, role=engineer)
-    roy = Employee(name='Roy', department=engineering, role=engineer)
-    tracy = Employee(name='Tracy', department=hr, role=manager)
+        manager = RoleModel(name="manager")
+        engineer = RoleModel(name="engineer")
 
-    [employee.save() for employee in [peter, roy, tracy]]
+        [role.save() for role in [engineer, manager]]
 
+        peter = EmployeeModel(name='Peter', department=engineering, role=engineer)
+        roy = EmployeeModel(name='Roy', department=engineering, role=engineer)
+        tracy = EmployeeModel(name='Tracy', department=hr, role=manager)
+
+        [employee.save() for employee in [peter, roy, tracy]]
