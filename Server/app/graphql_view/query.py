@@ -1,7 +1,9 @@
 import graphene
 
-from model import Department as DepartmentModel, Role as RoleModel, Employee as EmployeeModel
-from graphql_view.fields import DepartmentField, RoleField, EmployeeField
+from app.model.DepartmentModel import DepartmentModel
+from app.model.EmployeeModel import EmployeeModel
+from app.model.RoleModel import RoleModel
+from app.graphql_view.fields import DepartmentField, RoleField, EmployeeField
 from util.constructor import construct
 
 

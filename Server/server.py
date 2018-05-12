@@ -1,7 +1,8 @@
-from model import init_db
+from app.model import init_db
 from flask import Flask
 from flask_graphql import GraphQLView
-import graphql_view
+from app import graphql_view
+
 app = Flask(__name__)
 app.debug = True
 

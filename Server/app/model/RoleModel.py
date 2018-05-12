@@ -1,6 +1,6 @@
 from mongoengine import Document, StringField
 
 
-class Department(Document):
-    meta = {'collection': 'department'}
+class RoleModel(Document):
+    meta = {"collection": 'role'}
     name = StringField()
