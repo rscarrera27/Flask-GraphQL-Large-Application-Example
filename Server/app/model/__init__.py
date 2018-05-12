@@ -4,18 +4,15 @@ from app.model.DepartmentModel import DepartmentModel
 from app.model.EmployeeModel import EmployeeModel
 from app.model.RoleModel import RoleModel
 
-# connect('graphene-mongo-example', host='mongomock://localhost', alias='default')
-
 
 class Mongo:
-    def __init__(self, app):
-        if app is not None:
-            self.init_db(app)
 
-    def init_db(self, app):
+    def __init__(self, app):
         settings = app.config['MONGODB_SETTINGS']
 
         connect(**settings)
+
+        print('[INFO] MongoEngine initialized with {}'.format(settings))
 
         engineering = DepartmentModel(name="engineering")
         hr = DepartmentModel(name="Human Resources")
