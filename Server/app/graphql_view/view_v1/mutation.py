@@ -1,10 +1,10 @@
 import graphene
 from mongoengine import MultipleObjectsReturned, DoesNotExist, ValidationError
 from werkzeug.exceptions import abort
-from app.model.DepartmentModel import DepartmentModel
-from app.model.EmployeeModel import EmployeeModel
-from app.model.RoleModel import RoleModel
-from app.graphql_view.fields import DepartmentField, RoleField, EmployeeField
+from app.model.model_v1.DepartmentModel import DepartmentModel
+from app.model.model_v1.EmployeeModel import EmployeeModel
+from app.model.model_v1.RoleModel import RoleModel
+from app.graphql_view.view_v1.fields import DepartmentField, RoleField, EmployeeField
 from util.constructor import construct
 
 
