@@ -101,3 +101,7 @@ ENV/
 .mypy_cache/
 *.xml
 *.iml
+Test/app.py
+Test/database.py
+Test/model.py
+Test/schema.py

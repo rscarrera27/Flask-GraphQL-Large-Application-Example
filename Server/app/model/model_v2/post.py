@@ -9,6 +9,7 @@ class CommentModel(Document):
 
 class PostModel(Document):
     meta = {'collection': 'post'}
+    id = IntField(required=True, primary_key=True)
     title = StringField(required=True)
     text = StringField(required=True)
     comment = ListField(CommentModel)
