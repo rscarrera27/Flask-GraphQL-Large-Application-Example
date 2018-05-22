@@ -20,7 +20,8 @@ class Query(graphene.ObjectType):
 
     hello = graphene.String(name=graphene.String(default_value="world"))
 
-    def resolve_department(self, info, name):
+    def resolve_department(self, info, **kwargs):
+        name = kwargs["name"]
         if name == "all":
             department = [construct(DepartmentField, object) for object in DepartmentModel.objects]
             return department
@@ -28,7 +29,8 @@ class Query(graphene.ObjectType):
             department = DepartmentModel.objects.get(name=name)
             return [construct(DepartmentField, department)]
 
-    def resolve_role(self, info, name):
+    def resolve_role(self, info, **kwargs):
+        name = kwargs["name"]
         if name == "all":
             role = [construct(RoleField, object) for object in RoleModel.objects]
             return role
@@ -36,8 +38,8 @@ class Query(graphene.ObjectType):
             role = RoleModel.objects.get(name=name)
             return [construct(RoleField, role)]
 
-    def resolve_employee(self, info, name):
-
+    def resolve_employee(self, info, **kwargs):
+        name = kwargs["name"]
         def make_employee(employee):
 
             department = DepartmentModel.objects.get(id=employee.department.id)
