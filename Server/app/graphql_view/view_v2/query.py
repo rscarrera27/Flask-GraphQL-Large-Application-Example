@@ -15,13 +15,26 @@ class Query(graphene.ObjectType):
                             id=graphene.String(default_value=None),
                             username=graphene.String(default_value=None))
 
+    @staticmethod
+    def resolve_post(info, **kwargs):
+        query = argument_filter(kwargs)
 
+        def make_post(post):
+            author = AccountModel.objects.get(id=post.author.id)
+            author = construct(AccountField, author)
 
             comment = [construct(CommentField, object) for object in post.comment]
 
-    @staticmethod
-    def resolve_post_ist(info, id, title):
-        pass
+            post = construct(PostField, post)
+
+            post.author = author
+            post.comment = comment
+
+            return post
+
+        post = [make_post(object) for object in PostModel.objects(**query)]
+
+        return post
 
     @staticmethod
     def resolve_account_list(info, id, username):
