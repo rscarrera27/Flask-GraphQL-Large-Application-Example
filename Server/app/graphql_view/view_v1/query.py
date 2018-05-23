@@ -10,37 +10,31 @@ from util import construct, argument_filter
 class Query(graphene.ObjectType):
 
     department = graphene.List(of_type=DepartmentField,
-                               name=graphene.String(default_value="all"))
+                               name=graphene.String(default_value=None))
 
     role = graphene.List(of_type=RoleField,
-                         name=graphene.String(default_value="all"))
+                         name=graphene.String(default_value=None))
 
     employee = graphene.List(of_type=EmployeeField,
-                             name=graphene.String(default_value="all"))
+                             name=graphene.String(default_value=None))
 
     hello = graphene.String(name=graphene.String(default_value="world"))
 
     def resolve_department(self, info, **kwargs):
-        name = kwargs["name"]
-        if name == "all":
-            department = [construct(DepartmentField, object) for object in DepartmentModel.objects]
-            return department
-        else:
-            department = DepartmentModel.objects.get(name=name)
-            return [construct(DepartmentField, department)]
+        query = argument_filter(kwargs)
+        department = [construct(DepartmentField, object) for object in DepartmentModel.objects(**query)]
+
+        return department
 
     def resolve_role(self, info, **kwargs):
         query = argument_filter(kwargs)
-        if query["name"] == "all":
-            role = [construct(RoleField, object) for object in RoleModel.objects]
-            return role
-        else:
-            role = RoleModel.objects.get(**query)
-            return [construct(RoleField, role)]
+        role = [construct(RoleField, object) for object in RoleModel.objects(**query)]
+
+        return role
 
     def resolve_employee(self, info, **kwargs):
-        name = kwargs["name"]
         query = argument_filter(kwargs)
+
         def make_employee(employee):
 
             department = DepartmentModel.objects.get(id=employee.department.id)
@@ -56,14 +50,10 @@ class Query(graphene.ObjectType):
 
             return employee
 
-        if query["name"] == "all":
-            employee = [make_employee(document) for document in EmployeeModel.objects]
-            return employee
-        else:
-            employee = EmployeeModel.objects.get(**query)
-            employee = make_employee(employee)
+        print(query)
+        employee = [make_employee(document) for document in EmployeeModel.objects(**query)]
 
-            return [employee]
+        return employee
 
     def resolve_hello(self, info, name):
         return 'Hello ' + name
