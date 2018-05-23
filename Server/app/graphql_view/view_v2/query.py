@@ -1,28 +1,23 @@
 import graphene
 
 from app.model.model_v2.account import AccountModel
-from app.model.model_v2.post import CommentModel, PostModel
-from app.graphql_view.view_v2.fields import *
-from util.constructor import construct
+from app.model.model_v2.post import PostModel
+from app.graphql_view.view_v2.fields import AccountField, PostField, CommentField
+from util import construct, argument_filter
 
 
 class Query(graphene.ObjectType):
-    post_list = graphene.List(of_type=PostField,
-                             id=graphene.Int(default_value=None),
-                             title=graphene.String(default_value=None))
+    post = graphene.List(of_type=PostField,
+                         id=graphene.Int(default_value=None),
+                         title=graphene.String(default_value=None))
 
-    account_list = graphene.List(of_type=AccountField,
-                                id=graphene.String(default_value="all"),
-                                username=graphene.String(default_value="all"))
+    account = graphene.List(of_type=AccountField,
+                            id=graphene.String(default_value=None),
+                            username=graphene.String(default_value=None))
 
-    comment = graphene.List(of_type=CommentField,
-                            id=graphene.String())
 
-    post = graphene.Field(type=PostField,
-                          id=graphene.Int(default_value=0))
 
-    account = graphene.Field(type=AccountField,
-                             id=graphene.String())
+            comment = [construct(CommentField, object) for object in post.comment]
 
     @staticmethod
     def resolve_post_ist(info, id, title):
