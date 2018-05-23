@@ -50,7 +50,6 @@ class Query(graphene.ObjectType):
 
             return employee
 
-        print(query)
         employee = [make_employee(document) for document in EmployeeModel.objects(**query)]
 
         return employee
