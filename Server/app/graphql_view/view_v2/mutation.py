@@ -50,3 +50,16 @@ class RefreshMutation(graphene.Mutation):
     def mutate(cls, info, refresh_token):
         pass
 
+
+class LogoutMutation(graphene.Mutation):
+
+    class Arguments(object):
+        refresh_token = graphene.String()
+
+    is_success = graphene.Boolean()
+    message = graphene.String()
+
+    @classmethod
+    def mutate(cls, info, refresh_token):
+        pass
+
