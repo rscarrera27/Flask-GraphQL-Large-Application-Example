@@ -13,6 +13,7 @@ class RegisterMutation(graphene.Mutation):
         password = graphene.String()
         description = graphene.String()
 
+    is_success = graphene.Boolean()
     message = graphene.String()
 
     @classmethod
