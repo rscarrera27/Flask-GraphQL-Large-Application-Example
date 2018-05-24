@@ -22,3 +22,18 @@ class RegisterMutation(graphene.Mutation):
 
         return cls(message="Successfully registered")
 
+
+class AuthMutation(graphene.Mutation):
+
+    class Arguments(object):
+        id = graphene.String()
+        password = graphene.String()
+
+    access_token = graphene.String()
+    refresh_token = graphene.String()
+    message = graphene.String()
+
+    @classmethod
+    def mutate(cls, info, **kwargs):
+        pass
+
