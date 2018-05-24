@@ -78,3 +78,17 @@ class PostUploadMutation(graphene.Mutation):
     def mutate(cls, info, token, title, text):
         pass
 
+
+class PostDeleteMutation(graphene.Mutation):
+
+    class Arguments(object):
+        token = graphene.String()
+        post_id = graphene.Int()
+
+    is_success = graphene.Boolean()
+    message = graphene.String()
+
+    @classmethod
+    def mutate(cls, info, token, post_id):
+        pass
+
