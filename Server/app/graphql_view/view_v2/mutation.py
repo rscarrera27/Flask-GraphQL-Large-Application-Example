@@ -92,3 +92,18 @@ class PostDeleteMutation(graphene.Mutation):
     def mutate(cls, info, token, post_id):
         pass
 
+
+class CommentLeaveMutation(graphene.Mutation):
+
+    class Arguments(object):
+        token = graphene.String()
+        post_id = graphene.Int()
+        comment = graphene.String()
+
+    is_success = graphene.String()
+    message = graphene.String()
+
+    @classmethod
+    def mutate(cls, info, token, post_id, comment):
+        pass
+
