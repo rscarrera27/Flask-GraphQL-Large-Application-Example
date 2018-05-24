@@ -37,3 +37,16 @@ class AuthMutation(graphene.Mutation):
     def mutate(cls, info, **kwargs):
         pass
 
+
+class RefreshMutation(graphene.Mutation):
+
+    class Arguments(object):
+        refresh_token = graphene.String()
+
+    access_token = graphene.String()
+    message = graphene.String()
+
+    @classmethod
+    def mutate(cls, info, refresh_token):
+        pass
+
