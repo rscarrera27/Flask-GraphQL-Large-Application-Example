@@ -63,3 +63,18 @@ class LogoutMutation(graphene.Mutation):
     def mutate(cls, info, refresh_token):
         pass
 
+
+class PostUploadMutation(graphene.Mutation):
+
+    class Arguments(object):
+        token = graphene.String()
+        title = graphene.String()
+        text = graphene.String()
+
+    is_success = graphene.Boolean()
+    message = graphene.String()
+
+    @classmethod
+    def mutate(cls, info, token, title, text):
+        pass
+
