@@ -15,15 +15,14 @@ class DepartmentMutation(graphene.Mutation):
 
     department = graphene.Field(DepartmentField)
 
-    @classmethod
-    def mutate(cls, info, _name):
+    def mutate(self, info, name):
         name = dict({
-            "name": _name
+            "name": name
         })
-        department = DepartmentModel.objects(**name)
+        department = DepartmentModel(**name)
         department.save()
 
-        return cls(department=construct(DepartmentField, department))
+        return DepartmentMutation(department=construct(DepartmentField, department))
 
 
 class RoleMutation(graphene.Mutation):
@@ -33,13 +32,12 @@ class RoleMutation(graphene.Mutation):
 
     role = graphene.Field(RoleField)
 
-    @classmethod
-    def mutate(cls, info, name):
+    def mutate(self, info, name):
         role_data = name
         role = RoleModel.objects.create(**role_data)
         role.save()
 
-        return cls(role=construct(RoleField, role))
+        return RoleMutation(role=construct(RoleField, role))
 
 
 class EmployeeMutation(graphene.Mutation):
