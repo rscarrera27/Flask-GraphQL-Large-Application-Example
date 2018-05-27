@@ -16,6 +16,7 @@ class RegisterMutation(graphene.Mutation):
     is_success = graphene.Boolean()
     message = graphene.String()
 
+
     def mutate(self, info, **kwargs):
         AccountModel(**kwargs).save()
 
