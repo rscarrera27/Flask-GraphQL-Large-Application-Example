@@ -16,11 +16,10 @@ class RegisterMutation(graphene.Mutation):
     is_success = graphene.Boolean()
     message = graphene.String()
 
-    @classmethod
-    def mutate(cls, info, **kwargs):
+    def mutate(self, info, **kwargs):
         AccountModel(**kwargs).save()
 
-        return cls(message="Successfully registered")
+        return RegisterMutation(message="Successfully registered")
 
 
 class AuthMutation(graphene.Mutation):
@@ -33,8 +32,7 @@ class AuthMutation(graphene.Mutation):
     refresh_token = graphene.String()
     message = graphene.String()
 
-    @classmethod
-    def mutate(cls, info, **kwargs):
+    def mutate(self, info, **kwargs):
         pass
 
 
@@ -46,8 +44,7 @@ class RefreshMutation(graphene.Mutation):
     access_token = graphene.String()
     message = graphene.String()
 
-    @classmethod
-    def mutate(cls, info, refresh_token):
+    def mutate(self, info, refresh_token):
         pass
 
 
@@ -59,8 +56,7 @@ class LogoutMutation(graphene.Mutation):
     is_success = graphene.Boolean()
     message = graphene.String()
 
-    @classmethod
-    def mutate(cls, info, refresh_token):
+    def mutate(self, info, refresh_token):
         pass
 
 
@@ -74,8 +70,7 @@ class PostUploadMutation(graphene.Mutation):
     is_success = graphene.Boolean()
     message = graphene.String()
 
-    @classmethod
-    def mutate(cls, info, token, title, text):
+    def mutate(self, info, token, title, text):
         pass
 
 
@@ -88,8 +83,7 @@ class PostDeleteMutation(graphene.Mutation):
     is_success = graphene.Boolean()
     message = graphene.String()
 
-    @classmethod
-    def mutate(cls, info, token, post_id):
+    def mutate(self, info, token, post_id):
         pass
 
 
@@ -103,7 +97,6 @@ class CommentLeaveMutation(graphene.Mutation):
     is_success = graphene.String()
     message = graphene.String()
 
-    @classmethod
-    def mutate(cls, info, token, post_id, comment):
+    def mutate(self, info, token, post_id, comment):
         pass
 
