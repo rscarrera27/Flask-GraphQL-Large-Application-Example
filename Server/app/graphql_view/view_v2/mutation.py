@@ -16,11 +16,11 @@ class RegisterMutation(graphene.Mutation):
     is_success = graphene.Boolean()
     message = graphene.String()
 
-
-    def mutate(self, info, **kwargs):
+    @staticmethod
+    def mutate(root, info, **kwargs):
         AccountModel(**kwargs).save()
 
-        return RegisterMutation(message="Successfully registered")
+        return RegisterMutation(is_success=True, message="Successfully registered")
 
 
 class AuthMutation(graphene.Mutation):
