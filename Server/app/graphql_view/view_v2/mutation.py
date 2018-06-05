@@ -3,6 +3,8 @@ from app.model.model_v2.account import AccountModel
 from app.model.model_v2.post import CommentModel, PostModel
 from app.graphql_view.view_v2.fields import AccountField, CommentField, PostField
 from util import construct
+from flask_jwt_extended import create_access_token, create_refresh_token
+from uuid import uuid4
 
 
 class RegisterMutation(graphene.Mutation):
@@ -34,7 +36,15 @@ class AuthMutation(graphene.Mutation):
     message = graphene.String()
 
     def mutate(self, info, **kwargs):
-        pass
+        user = AccountModel.objects(**kwargs).first()
+
+        if user is not None:
+            access_token = create_access_token(identity=kwargs["id"])
+            refresh_token = create_refresh_token(identity=str(uuid4()))
+
+            return AuthMutation(access_token=access_token, refresh_token=refresh_token, message="Login Success")
+        else:
+            return AuthMutation(message="Login failed")
 
 
 class RefreshMutation(graphene.Mutation):
