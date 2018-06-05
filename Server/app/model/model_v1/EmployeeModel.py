@@ -2,8 +2,8 @@ from datetime import datetime
 
 from mongoengine import Document, StringField, DateTimeField, ReferenceField
 
-from app.model.DepartmentModel import DepartmentModel
-from app.model.RoleModel import RoleModel
+from app.model.model_v1.DepartmentModel import DepartmentModel
+from app.model.model_v1.RoleModel import RoleModel
 
 
 class EmployeeModel(Document):

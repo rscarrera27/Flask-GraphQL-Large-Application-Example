@@ -3,35 +3,6 @@
 ## Summary
 GraphQL tutorial and server template with Python
 
-**directory Structure**
-- GraphQL_MongoEngine
-  - app.py
-  - database.py
-  - model.py
-  - schema.py
-- GraphQL_SQLAlchmey
-  - app.py
-  - database.py
-  - model.py
-  - schema.py
-- GraphQL_with_JWT(based on GraphQL_MongoEngine) 
-  - app.py
-  - database.py
-  - model.py
-  - schema.py
-
-**TODO**
-- Server Template
-- More Mutation for examples
-  
-## requirements
-- Flask
-- Flask-GraphQL
-- Mongoengine (for Mongoengine Example)
-- Mongomock
-- SQLAlchemy (for SQLAlchemy Example)
-- graphene
-- Flask-JWT-Extended (for JWT Auth Example)
 
 ## GraphQL
 GraphQL은 페이스북에서 개발한 어플리케이션 레이어 쿼리 언어이다. GraphQL을 사용하면 서버의 구조를 간단히 하고 클라이언트는 서버의 API 추가 없이도 원하는 형태로 쿼리하여 데이터를 받아올수 있게 된다. 간단히 말하면 서버에 쿼리를 사용하여 데이터를 받아올수 있다고 생각하면 된다.
