@@ -39,13 +39,7 @@ class Query(graphene.ObjectType):
     @staticmethod
     def resolve_account(info, **kwargs):
 
-        def data_filter(account):
-            account = construct(AccountField, account)
-            account.password = "*" * len(account.password)
-
-            return account
-
         query = argument_filter(kwargs)
-        account = [data_filter(object) for object in AccountModel.objects(**query)]
+        account = [object for object in AccountModel.objects(**query)]
 
         return account
