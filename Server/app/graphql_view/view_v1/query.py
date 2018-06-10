@@ -1,10 +1,18 @@
 import graphene
-
 from app.model.model_v1.DepartmentModel import DepartmentModel
 from app.model.model_v1.EmployeeModel import EmployeeModel
 from app.model.model_v1.RoleModel import RoleModel
 from app.graphql_view.view_v1.fields import DepartmentField, RoleField, EmployeeField
 from util import construct, argument_filter
+from functools import wraps
+
+def token_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        if kwargs.get('token'):
+            return fn(*args, **kwargs)
+        return None
+    return wrapper
 
 
 class Query(graphene.ObjectType):
@@ -13,12 +21,14 @@ class Query(graphene.ObjectType):
                                name=graphene.String(default_value=None))
 
     role = graphene.List(of_type=RoleField,
-                         name=graphene.String(default_value=None))
+                         name=graphene.String(default_value=None),
+                         token=graphene.String())
 
     employee = graphene.List(of_type=EmployeeField,
                              name=graphene.String(default_value=None))
 
-    hello = graphene.String(name=graphene.String(default_value="world"))
+    hello = graphene.String(name=graphene.String(default_value="world"),
+                            token=graphene.String())
 
     def resolve_department(self, info, **kwargs):
         query = argument_filter(kwargs)
@@ -26,7 +36,8 @@ class Query(graphene.ObjectType):
 
         return department
 
-    def resolve_role(self, info, **kwargs):
+    @token_required
+    def resolve_role(self, info, token, **kwargs):
         query = argument_filter(kwargs)
         role = [construct(RoleField, object) for object in RoleModel.objects(**query)]
 
@@ -54,5 +65,6 @@ class Query(graphene.ObjectType):
 
         return employee
 
-    def resolve_hello(self, info, name):
+    @token_required
+    def resolve_hello(self, info, name, token):
         return 'Hello ' + name
