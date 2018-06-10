@@ -1,4 +1,5 @@
 from mongoengine import *
+from datetime import datetime
 
 
 class AccountModel(Document):
@@ -7,4 +8,4 @@ class AccountModel(Document):
     username = StringField(required=True)
     password = StringField(required=True)
     description = StringField()
-    register_on = DateTimeField(required=True)
+    register_on = DateTimeField(required=True, default=datetime.now())
