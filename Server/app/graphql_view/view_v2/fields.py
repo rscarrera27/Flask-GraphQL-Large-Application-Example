@@ -18,3 +18,8 @@ class PostField(graphene.ObjectType):
     upload_on = graphene.DateTime()
     comment = graphene.List(of_type=CommentField)
     author = graphene.Field(AccountField)
+
+
+class ResponseMessageField(graphene.ObjectType):
+    is_success = graphene.Boolean()
+    message = graphene.String()
