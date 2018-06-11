@@ -15,3 +15,5 @@ class Config:
         'db': SERVICE_NAME,
         'host': 'mongomock://localhost'
     }
+
+    JWT_SECRET_KEY = "affogato"
