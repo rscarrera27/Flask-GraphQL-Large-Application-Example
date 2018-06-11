@@ -1,7 +1,6 @@
 import graphene
 from app.model.model_v2.account import AccountModel
 from app.model.model_v2.post import CommentModel, PostModel
-from app.graphql_view.view_v2.fields import AccountField, CommentField, PostField
 from app.graphql_view.view_v2 import refresh_required, auth_required, blacklist
 from flask_graphql_auth import create_access_token, create_refresh_token, get_jwt_identity
 from uuid import uuid4
@@ -91,7 +90,7 @@ class PostUploadMutation(graphene.Mutation):
                              title=title,
                              text=text,
                              comment=[],
-                             author=AccountModel.objects(id=get_jwt_identity()))
+                             author=AccountModel.objects(id=get_jwt_identity()).first())
 
         new_post.save()
 
