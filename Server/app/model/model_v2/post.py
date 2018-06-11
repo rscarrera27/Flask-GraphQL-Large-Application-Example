@@ -1,5 +1,6 @@
 from mongoengine import *
 from .account import AccountModel
+from datetime import datetime
 
 
 class CommentModel(Document):
@@ -14,4 +15,4 @@ class PostModel(Document):
     text = StringField(required=True)
     comment = ListField(CommentModel)
     author = ReferenceField(AccountModel, required=True)
-    upload_on = DateTimeField(required=True)
+    upload_on = DateTimeField(required=True, default=datetime.now())
