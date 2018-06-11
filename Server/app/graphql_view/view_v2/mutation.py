@@ -137,7 +137,15 @@ class CommentLeaveMutation(graphene.Mutation):
 
     @auth_required
     def mutate(self, info, token, post_id, comment):
-        pass
+        post = PostModel.objects(id=post_id).first()
+        new_comment = CommentModel(text=comment, author=AccountModel.objects(id=get_jwt_identity()).first())
+
+        if post is None:
+            return CommentLeaveMutation(is_success=False, message="Unknown post id")
+
+        post.update_one(push_comment=new_comment)
+
+        return CommentLeaveMutation(is_success=True, message="Comment successfully uploaded")
 
 
 class Mutation(graphene.ObjectType):
@@ -152,3 +160,5 @@ class Mutation(graphene.ObjectType):
     post_upload = PostUploadMutation.Field()
 
     post_delete = PostDeleteMutation.Field()
+
+    comment_leave = CommentLeaveMutation.Field()
