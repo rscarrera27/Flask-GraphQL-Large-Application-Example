@@ -1,8 +1,7 @@
 from mongoengine import connect
 
-from app.model.model_v1.DepartmentModel import DepartmentModel
-from app.model.model_v1.EmployeeModel import EmployeeModel
-from app.model.model_v1.RoleModel import RoleModel
+from app.model.model_v2.account import AccountModel
+from app.model.model_v2.post import PostModel, CommentModel
 
 
 class Mongo:
@@ -14,18 +13,17 @@ class Mongo:
 
         print('[INFO] MongoEngine initialized with {}'.format(settings))
 
-        engineering = DepartmentModel(name="engineering")
-        hr = DepartmentModel(name="Human Resources")
+        lewis = AccountModel(id='lewis',
+                             username='lewis',
+                             password='1234',
+                             description='hello world')
 
-        [dpt.save() for dpt in [engineering, hr]]
+        lewis.save()
 
-        manager = RoleModel(name="manager")
-        engineer = RoleModel(name="engineer")
+        post = PostModel(id=1,
+                         title='Hello',
+                         text='World',
+                         comment=[],
+                         author=AccountModel.objects(id='lewis').first())
 
-        [role.save() for role in [engineer, manager]]
-
-        peter = EmployeeModel(name='Peter', department=engineering, role=engineer)
-        roy = EmployeeModel(name='Roy', department=engineering, role=engineer)
-        tracy = EmployeeModel(name='Tracy', department=hr, role=manager)
-
-        [employee.save() for employee in [peter, roy, tracy]]
+        post.save()
