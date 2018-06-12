@@ -2,6 +2,7 @@ aniso8601==3.0.0
 click==6.7
 Flask==1.0.1
 Flask-GraphQL==1.4.1
+Flask-GraphQL-Auth==0.3
 Flask-JWT-Extended==3.8.1
 graphene==2.1
 graphql-core==2.0
