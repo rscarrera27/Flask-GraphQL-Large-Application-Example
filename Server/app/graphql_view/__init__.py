@@ -1,8 +1,8 @@
 import graphene
 from flask_graphql import GraphQLView
 
-from app.graphql_view.mutation import Mutation
-from app.graphql_view.query import Query
+from app.graphql_view.mutations import Mutation
+from app.graphql_view.queries import Query
 
 
 class Schema:
