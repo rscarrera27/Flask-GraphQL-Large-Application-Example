@@ -1,8 +1,8 @@
 import graphene
 
-from app.model.model_v2.account import AccountModel
-from app.model.model_v2.post import PostModel
-from app.graphql_view.view_v2.fields import AccountField, PostField, CommentField
+from app.model.account import AccountModel
+from app.model.post import PostModel
+from app.graphql_view.fields import AccountField, PostField, CommentField
 from util import construct, argument_filter
 
 

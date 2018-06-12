@@ -1,7 +1,7 @@
 import graphene
-from app.model.model_v2.account import AccountModel
-from app.model.model_v2.post import CommentModel, PostModel
-from app.graphql_view.view_v2 import refresh_required, auth_required, blacklist
+from app.model.account import AccountModel
+from app.model.post import CommentModel, PostModel
+from app.graphql_view.util import blacklist, auth_required, refresh_required
 from flask_graphql_auth import create_access_token, create_refresh_token, get_jwt_identity
 from uuid import uuid4
 

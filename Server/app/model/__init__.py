@@ -1,7 +1,7 @@
 from mongoengine import connect
 
-from app.model.model_v2.account import AccountModel
-from app.model.model_v2.post import PostModel, CommentModel
+from app.model.account import AccountModel
+from app.model.post import PostModel
 
 
 class Mongo:
