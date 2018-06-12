@@ -16,7 +16,7 @@ class Query(graphene.ObjectType):
                             username=graphene.String(default_value=None))
 
     @staticmethod
-    def resolve_post(info, **kwargs):
+    def resolve_post(root, info, **kwargs):
         query = argument_filter(kwargs)
 
         def make_post(post):
@@ -37,7 +37,7 @@ class Query(graphene.ObjectType):
         return post
 
     @staticmethod
-    def resolve_account(info, **kwargs):
+    def resolve_account(root, info, **kwargs):
 
         query = argument_filter(kwargs)
         account = [object for object in AccountModel.objects(**query)]
