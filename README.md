@@ -6,6 +6,8 @@ This is how I structure my GraphQL server with Flask + Graphene
 ## About
 GrapQL 서버는 아직까지 쉽게 찾을 수 있는 자료가 많이 없기 때문에 (파이썬 관련해서는 더욱 없습니다) 디자인과 서버 구조에 관해서 많은 고민을 하게 됩니다. 이 저장소는 파이썬을 위한 GraphQL 라이브러리인 Grphene 과 Flask를 이용해 만드는 구조적인(?) GraphQL 서버의 예시입니다.
 
+아직 테스트 케이스도 구성되지 않았고 Relay, InputObject나 미들웨어 사용 예시도 없고 Graphene에서 제공되는 기능들이 다 적용되지 않아 부족하지만 곧 추가될 예정입니다.
+
 ## Project defendencies
 GraphQL 라이브러리로 Graphene, 웹 서버로 Flask, DB로 MongoDB(Mongoengine), 그리고 인증 처리에 JWT(Flask-GraphQL-Auth)를 사용합니다.
 
