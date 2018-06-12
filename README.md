@@ -42,7 +42,7 @@ GraphQL의 뮤테이션들로 이루어져 있습니다. 유연한 구조를 위
 #### /Server/app/graphql_view/util.py 
 뮤테이션을 위한 인증 데코레이터입니다. Flask-GrpahQL-Auth의 데코레이터를 사용하여 만들어졌습니다. 이 데코레이터들은 인증이 실패한다면 각 뮤테이션 클래스로 넘어가지 않고 데코레이터가 ResponseMessageField를 반환하여 인증이 실패했다는것을 알립니다.
 
-GraphQL 공식 문서에서는 인증을 Middleware에서 처리하는 것을 권장한다고 하지만 Graphene의 개발자 중 한명인 Syrus Akbary는 각 인증 데코레이터를 사용해  resolver에서 처리하는것이 좀 더 쉽고 확장 가능한 접근 방법이라고 했습니다. 저는 후자를 선택하여 사용하고 있습니다.
+GraphQL 공식 문서에서는 인증을 Middleware에서 처리하는 것을 권장한다고 하지만 Graphene의 개발자 중 한명인 Syrus Akbary가 각 인증 데코레이터를 사용해  resolver에서 처리하는것이 좀 더 쉽고 확장 가능한 접근 방법이라고 조언해 주었기 때문에 resolver 단에서 인증을 수행하는 방법을 사용하고 있습니다.
 
 ## I refered
 ### People
@@ -52,8 +52,8 @@ GraphQL 공식 문서에서는 인증을 Middleware에서 처리하는 것을 �
 [Flask-Large-Application-Example](https://github.com/JoMingyu/Flask-Large-Application-Example)
 
 ### Website
-[Designing GraphQL mutations](https://dev-blog.apollodata.com/designing-graphql-mutations-e09de826ed97)
-[Authorization in GraphQL](https://dev-blog.apollodata.com/authorization-in-graphql-452b1c402a9)
+[Designing GraphQL mutations](https://dev-blog.apollodata.com/designing-graphql-mutations-e09de826ed97)  
+[Authorization in GraphQL](https://dev-blog.apollodata.com/authorization-in-graphql-452b1c402a9)  
 [GraphQL ansd authentication](https://medium.com/the-graphqlhub/graphql-and-authentication-b73aed34bbeb)
 
 ### Library Docs
