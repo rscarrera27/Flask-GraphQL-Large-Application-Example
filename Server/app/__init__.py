@@ -2,6 +2,7 @@ from flask import Flask
 from app.model import Mongo
 from app.graphql_view import Schema
 from app import graphql_view
+from flask_graphql_auth import GraphQLAuth
 
 
 def create_app(*config_cls):
@@ -14,6 +15,7 @@ def create_app(*config_cls):
 
     Mongo(app)
     Schema(app)
+    GraphQLAuth(app)
 
     return app
 
