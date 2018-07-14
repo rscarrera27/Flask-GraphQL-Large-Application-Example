@@ -1,7 +1,7 @@
 import graphene
 
-from app.graphql_view.fields.account import AccountField
-from app.graphql_view.fields.comment import CommentField
+from app.schema.fields.account import AccountField
+from app.schema.fields.comment import CommentField
 
 
 class PostField(graphene.ObjectType):

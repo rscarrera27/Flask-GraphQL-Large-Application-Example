@@ -2,7 +2,7 @@ from functools import wraps
 
 from flask_graphql_auth import jwt_required, get_jwt_identity, jwt_refresh_token_required
 
-from app.graphql_view.fields import ResponseMessageField
+from app.schema.fields import ResponseMessageField
 from app.model import AccountModel
 
 blacklist = set()

@@ -3,7 +3,7 @@ from uuid import uuid4
 import graphene
 from flask_graphql_auth import create_access_token, create_refresh_token, get_jwt_identity
 
-from app.graphql_view.util import blacklist, refresh_required
+from app.schema.util import blacklist, refresh_required
 from app.model import AccountModel
 
 

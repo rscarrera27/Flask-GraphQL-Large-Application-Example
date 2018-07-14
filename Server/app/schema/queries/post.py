@@ -1,4 +1,4 @@
-from app.graphql_view.fields import PostField, AccountField, CommentField
+from app.schema.fields import PostField, AccountField, CommentField
 from app.model import AccountModel, PostModel
 from util import argument_filter, construct
 

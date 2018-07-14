@@ -1,8 +1,8 @@
 import graphene
 
-from app.graphql_view.fields import PostField, AccountField
-from app.graphql_view.queries.post import resolve_post
-from app.graphql_view.queries.account import resolve_account
+from app.schema.fields import PostField, AccountField
+from app.schema.queries.post import resolve_post
+from app.schema.queries.account import resolve_account
 
 
 class Query(graphene.ObjectType):

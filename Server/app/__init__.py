@@ -1,7 +1,7 @@
 from flask import Flask
 from app.model import Mongo
-from app.graphql_view import Schema
-from app import graphql_view
+from app.schema import Schema
+from app import schema
 from flask_graphql_auth import GraphQLAuth
 
 

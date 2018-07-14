@@ -1,7 +1,7 @@
 import graphene
 from flask_graphql_auth import get_jwt_identity
 
-from app.graphql_view.util import auth_required
+from app.schema.util import auth_required
 from app.model import PostModel, AccountModel
 
 
