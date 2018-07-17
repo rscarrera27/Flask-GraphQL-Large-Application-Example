@@ -1,9 +1,10 @@
 from app.model import AccountModel
-from util import argument_filter
+from app.schema.fields import AccountField
+from util import argument_filter, construct
 
 
 def resolve_account(root, info, **kwargs):
     query = argument_filter(kwargs)
-    account = [object for object in AccountModel.objects(**query)]
+    account = [construct(AccountField, object) for object in AccountModel.objects(**query)]
 
     return account
