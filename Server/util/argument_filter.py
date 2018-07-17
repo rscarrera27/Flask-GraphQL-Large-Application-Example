@@ -1,7 +1,6 @@
 def argument_filter(kwargs):
-    query = {}
     for key, value in kwargs.items():
-        if value is not None:
-            query.update({key: value})
+        if value is None:
+            del kwargs[key]
 
-    return query
+    return kwargs
