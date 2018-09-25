@@ -1,24 +1,29 @@
-from app.schema.fields import PostField, AccountField, CommentField
-from app.model import AccountModel, PostModel
-from util import argument_filter, construct
+from app.schema.fields import PostField, AccountField, CommentField, ResponseMessageField
+from app.model import PostModel
+
+from flask_graphql_auth import query_jwt_required
 
 
+@query_jwt_required
 def resolve_post(root, info, **kwargs):
-    query = argument_filter(kwargs)
+    id = kwargs.get('id', None)
+    title = kwargs.get('title', None)
 
-    def make_post(post):
-        author = AccountModel.objects.get(id=post.author.id)
-        author = construct(AccountField, author)
+    posts = PostModel.objects(id=id, title=title)
 
-        comment = [construct(CommentField, object) for object in post.comment]
+    if posts.first() is None:
+        return [ResponseMessageField(is_success=False, message="Not found")]
 
-        post = construct(PostField, post)
-
-        post.author = author
-        post.comment = comment
-
-        return post
-
-    post = [make_post(object) for object in PostModel.objects(**query)]
-
-    return post
+    return [PostField(id=post.id,
+                      title=post.title,
+                      text=post.text,
+                      upload_on=post.upload_on,
+                      comment=[CommentField(text=c.text,
+                                            author=AccountField(id=c.author.id,
+                                                                username=c.author.username,
+                                                                register_on=c.author.register_on))
+                               for c in post.comment],
+                      author=AccountField(id=post.author.id,
+                                          username=post.author.username,
+                                          register_on=post.author.register_on))
+            for post in posts]
