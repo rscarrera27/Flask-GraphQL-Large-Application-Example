@@ -1,5 +1,6 @@
 from app.model import AccountModel
 from app.schema.fields import AccountField, ResponseMessageField
+from app.schema.unions.query import AccountResults
 
 from flask_graphql_auth import query_jwt_required
 
@@ -14,8 +15,7 @@ def resolve_account(root, info, **kwargs):
     if accounts.first() is None:
         return ResponseMessageField(is_success=False, message="Not found")
 
-    return [AccountField(id=account.id,
-                         username=account.username,
-                         register_on=account.register_on)
-            for account in accounts]
-
+    return AccountResults(accounts=[AccountField(id=account.id,
+                                                 username=account.username,
+                                                 register_on=account.register_on)
+                                    for account in accounts])
