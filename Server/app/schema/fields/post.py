@@ -5,6 +5,7 @@ from app.schema.fields.comment import CommentField
 
 
 class PostField(graphene.ObjectType):
+    id = graphene.String()
     title = graphene.String()
     text = graphene.String()
     upload_on = graphene.DateTime()
