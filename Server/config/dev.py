@@ -1,18 +1,16 @@
-class Config:
-    GRAPHIQL = True
-    DEBUG = True
-    HOST = '0.0.0.0'
+from config import Config
 
-    SERVICE_NAME = 'graphql-flask-example'
+class DevConfig(Config):
+    DEBUG = True
 
     RUN_SETTING = {
-        'host': HOST,
+        'host': Config.HOST,
         'port': 5000,
         'debug': DEBUG
     }
 
     MONGODB_SETTINGS = {
-        'db': SERVICE_NAME,
+        'db': Config.SERVICE_NAME,
         'host': 'mongomock://localhost'
     }
 
