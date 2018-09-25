@@ -1,6 +1,7 @@
 import graphene
 
 from app.model import AccountModel
+from app.schema.fields import ResponseMessageField
 
 
 class RegisterMutation(graphene.Mutation):
@@ -11,11 +12,10 @@ class RegisterMutation(graphene.Mutation):
         password = graphene.String()
         description = graphene.String()
 
-    is_success = graphene.Boolean()
-    message = graphene.String()
+    result = graphene.Field(ResponseMessageField)
 
     @staticmethod
     def mutate(root, info, **kwargs):
         AccountModel(**kwargs).save()
 
-        return RegisterMutation(is_success=True, message="Successfully registered")
+        return RegisterMutation(ResponseMessageField(is_success=True, message="Successfully registered"))

@@ -5,7 +5,6 @@ from app.schema.mutations.post import (PostUploadMutation,
                                        CommentLeaveMutation)
 from app.schema.mutations.account import (AuthMutation,
                                           RefreshMutation,
-                                          LogoutMutation,
                                           RegisterMutation)
 
 
@@ -15,8 +14,6 @@ class Mutation(graphene.ObjectType):
     auth = AuthMutation.Field()
 
     refresh = RefreshMutation.Field()
-
-    logout = LogoutMutation.Field()
 
     post_upload = PostUploadMutation.Field()
 

@@ -1,2 +1,2 @@
-from .auth import AuthMutation, LogoutMutation, RefreshMutation
+from .auth import AuthMutation, RefreshMutation
 from .register import RegisterMutation
