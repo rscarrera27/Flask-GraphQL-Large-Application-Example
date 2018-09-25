@@ -13,19 +13,3 @@ class Mongo:
         connect(**settings)
 
         print('[INFO] MongoEngine initialized with {}'.format(settings))
-
-        lewis = AccountModel(id='lewis',
-                             username='lewis',
-                             password='1234',
-                             description='hello world',
-                             register_on=datetime.now().date())
-
-        lewis.save()
-
-        post = PostModel(id=1,
-                         title='Hello',
-                         text='World',
-                         comment=[],
-                         author=AccountModel.objects(id='lewis').first())
-
-        post.save()
