@@ -7,22 +7,21 @@ This is how I structure my GraphQL server with Flask + Graphene
 This is basic example of large Flask+Graphene server. 
 all essential use examples have been covered and advanced use examples will be added step by step
 
-- Covered
-    - Query example
-    - Mutauion example
-    - Union example
-    - Field example
-    - Basic authentication example
-    - MongoDB example
+- Features
+    - [x] Query example
+    - [x] Mutauion example
+    - [x] Union example
+    - [x] Field example
+    - [ ] Relay example
+    - [ ] InputObjectType example
+    - [ ] Dataloader example
+    - [ ] Middleware example
+    - [ ] Interfaces example
+    - [ ] AbstractTypes example
+    - [x] Basic authentication example
+    - [x] MongoDB example
+    - [ ] MySQL(SQLAlchemy, PeeWee) example
 
-- Not Covered
-    - Relay example
-    - InputObjectType example
-    - MySQL(SQLAlchemy, PeeWee) example
-    - Dataloader example
-    - Middleware example
-    - Interfaces example
-    - AbstractTypes example
     
 ## Project defendencies
 - GraphQL framework
