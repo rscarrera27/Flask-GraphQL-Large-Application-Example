@@ -4,12 +4,6 @@ about: Create a report to that you want to improve before PR
 
 ---
 
----
-name: Improve request
-about: Create a report to help us improve
-
----
-
 **Describe the issue**
 A clear and concise description of what the bug is.
 
