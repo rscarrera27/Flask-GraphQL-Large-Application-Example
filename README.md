@@ -21,6 +21,8 @@ all essential use examples have been covered and advanced use examples will be a
     - [x] Basic authentication example
     - [x] MongoDB example
     - [ ] MySQL(SQLAlchemy, PeeWee) example
+- ToDo
+    - [ ] Layered Architecture(Clean Architecture)
 
     
 ## Project defendencies
