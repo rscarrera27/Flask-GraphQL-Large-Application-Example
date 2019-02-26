@@ -1,5 +1,7 @@
 #  ✨✨Flask-GraphQL-Large-Application-Example✨✨ [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
+ # OVERHAUL Scheduled
+
 ## Summary
 This is how I structure my GraphQL server with Flask + Graphene
 
@@ -23,6 +25,7 @@ all essential use examples have been covered and advanced use examples will be a
     - [ ] MySQL(SQLAlchemy, PeeWee) example
 - ToDo
     - [ ] Layered Architecture(Clean Architecture)
+    - [ ] OVERHAUL!!
 
     
 ## Project defendencies
