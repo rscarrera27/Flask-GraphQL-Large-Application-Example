@@ -1,7 +1,5 @@
 #  ✨✨Flask-GraphQL-Large-Application-Example✨✨ [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
- # OVERHAUL Scheduled
-
 ## Summary
 This is how I structure my GraphQL server with Flask + Graphene
 
@@ -23,9 +21,6 @@ all essential use examples have been covered and advanced use examples will be a
     - [x] Basic authentication example
     - [x] MongoDB example
     - [ ] MySQL(SQLAlchemy, PeeWee) example
-- ToDo
-    - [ ] Layered Architecture(Clean Architecture)
-    - [ ] OVERHAUL!!
 
     
 ## Project defendencies
@@ -63,15 +58,15 @@ GraphQL 스키마를 구성하고 구성된 스키마를 Flask 인스턴스에 �
 
 Structure GraphQL schema and add schema with flask.add_url_rule
 
-#### /Server/app/schema/fields
-GraphQL 쿼리와 뮤테이션에서 사용하는 필드들로 구성된 디렉터리입니다.
+#### /Server/app/schema/fields.py
+GraphQL 쿼리와 뮤테이션에서 사용하는 필드들
 
-This directory contains the fields that make up the GraphQL schema.
+This file contains the fields that make up the GraphQL schema.
 
-#### /Server/app/graphql_view/unions 
-GraphQL 쿼리와 뮤테이션에서 사용하는 유니온들로 구성된 디렉터리입니다.
+#### /Server/app/graphql_view/unions.py
+GraphQL 쿼리와 뮤테이션에서 사용하는 유니온들
 
-This directory contains the unions that make up the GraphQL schema.
+This file contains the unions that make up the GraphQL schema.
 
 #### /Server/app/schema/queries
 이 디렉터리는 쿼리와 쿼리 resolver들로 구성됩니다. 유연한 구조를 위해 resolver들을 독립적인 파일에 담습니다
@@ -79,7 +74,7 @@ This directory contains the unions that make up the GraphQL schema.
 This directory consists root query class and query resolvers. Place the resolver in an independent file for flexible structure
 
 #### /Server/app/schema/mutations
-이 디렉터리는 뮤테이션들로 구성됩니다. 유연한 구조를 위해 뮤테이션 들을 독립적인 파일에 담습니다
+이 디렉터리는 뮤테이션들로 구성됩니다. 유연한 구조를 위해 뮤테이션들을 독립적인 파일에 담습니다
 
 This directory consists mutations. Place the mutation in an independent file for flexible structure
 
