@@ -15,4 +15,11 @@ class Schema:
                                           schema=schema,
                                           graphiql=app.config['GRAPHIQL'])
         )
+
+        schema_json = schema.introspect()
+
+        @app.route("/schema")
+        def schema_view():
+            return schema_json
+
         print('[INFO] GraphQLView was successfully added with GraphiQL:{0}'.format(app.config['GRAPHIQL']))
