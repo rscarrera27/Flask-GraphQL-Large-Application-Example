@@ -1,6 +1,5 @@
 from app.model import AccountModel
-from app.schema.fields import AccountField, ResponseMessageField
-from app.schema.unions.query import AccountResults
+from app.schema.fields import AccountField, ResponseMessageField, AccountResults
 
 from flask_graphql_auth import query_jwt_required
 

@@ -1,12 +1,12 @@
 from uuid import uuid4
 
 import graphene
-from flask_graphql_auth import create_access_token, create_refresh_token, get_jwt_identity, \
-    mutation_jwt_refresh_token_required
+from flask_graphql_auth import create_access_token, create_refresh_token, mutation_jwt_refresh_token_required, \
+    get_jwt_identity
 
 from app.model import AccountModel
-from app.schema.unions.mutation import AuthUnion, RefreshUnion
-from app.schema.fields import AuthField, RefreshField, ResponseMessageField
+from app.schema.fields import AuthField, ResponseMessageField, RefreshField
+from app.schema.unions import AuthUnion, RefreshUnion
 
 
 class AuthMutation(graphene.Mutation):
@@ -38,3 +38,19 @@ class RefreshMutation(graphene.Mutation):
     def mutate(self, info, refresh_token):
         return RefreshMutation(RefreshField(acces_token=create_access_token(get_jwt_identity()), message="Refresh success"))
 
+
+class RegisterMutation(graphene.Mutation):
+
+    class Arguments(object):
+        id = graphene.String()
+        username = graphene.String()
+        password = graphene.String()
+        description = graphene.String()
+
+    result = graphene.Field(ResponseMessageField)
+
+    @staticmethod
+    def mutate(root, info, **kwargs):
+        AccountModel(**kwargs).save()
+
+        return RegisterMutation(ResponseMessageField(is_success=True, message="Successfully registered"))

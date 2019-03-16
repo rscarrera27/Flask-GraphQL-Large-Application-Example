@@ -1,5 +1,4 @@
-from app.schema.fields import PostField, AccountField, CommentField, ResponseMessageField
-from app.schema.unions.query import PostResults
+from app.schema.fields import PostField, AccountField, CommentField, ResponseMessageField, PostResults
 from app.model import PostModel
 
 from flask_graphql_auth import query_jwt_required

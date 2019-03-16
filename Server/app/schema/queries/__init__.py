@@ -1,6 +1,6 @@
 import graphene
 
-from app.schema.unions.query import AccountUnion, PostUnion
+from app.schema.unions import AccountUnion, PostUnion
 from app.schema.queries.post import resolve_post
 from app.schema.queries.account import resolve_account
 
