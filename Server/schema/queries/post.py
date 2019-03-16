@@ -1,5 +1,5 @@
-from app.schema.fields import PostField, AccountField, CommentField, ResponseMessageField, PostResults
-from app.model import PostModel
+from schema.fields import PostField, AccountField, CommentField, ResponseMessageField, PostResults
+from model import PostModel
 
 from flask_graphql_auth import query_jwt_required
 

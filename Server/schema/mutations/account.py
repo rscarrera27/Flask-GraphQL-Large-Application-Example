@@ -4,9 +4,9 @@ import graphene
 from flask_graphql_auth import create_access_token, create_refresh_token, mutation_jwt_refresh_token_required, \
     get_jwt_identity
 
-from app.model import AccountModel
-from app.schema.fields import AuthField, ResponseMessageField, RefreshField
-from app.schema.unions import AuthUnion, RefreshUnion
+from model import AccountModel
+from schema.fields import AuthField, ResponseMessageField, RefreshField
+from schema.unions import AuthUnion, RefreshUnion
 
 
 class AuthMutation(graphene.Mutation):

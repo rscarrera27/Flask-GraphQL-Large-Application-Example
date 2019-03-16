@@ -1,8 +1,6 @@
-from app.models import *
 import unittest
-from datetime import datetime, timedelta
 from config import dev
-from app import create_app
+from Server import create_app
 import json
 
 app = create_app(dev.DevConfig)

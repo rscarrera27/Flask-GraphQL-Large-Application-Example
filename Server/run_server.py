@@ -1,4 +1,4 @@
-from app import create_app
+from Server import create_app
 from config.dev import DevConfig
 
 if __name__ == '__main__':

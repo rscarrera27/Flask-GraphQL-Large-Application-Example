@@ -1,8 +1,9 @@
 import graphene
 from flask_graphql import GraphQLView
+from flask import jsonify
 
-from app.schema.mutations import Mutation
-from app.schema.queries import Query
+from schema.mutations import Mutation
+from schema.queries import Query
 
 
 class Schema:
@@ -20,6 +21,6 @@ class Schema:
 
         @app.route("/schema")
         def schema_view():
-            return schema_json
+            return jsonify(schema_json)
 
         print('[INFO] GraphQLView was successfully added with GraphiQL:{0}'.format(app.config['GRAPHIQL']))

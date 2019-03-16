@@ -1,10 +1,9 @@
 import graphene
 from flask_graphql_auth import mutation_jwt_required, get_jwt_identity
 
-from app.model import PostModel, AccountModel
-from app.model.post import CommentModel
-from app.schema.fields import ResponseMessageField
-from app.schema.unions import ResponseUnion
+from model import PostModel, AccountModel, CommentModel
+from schema.fields import ResponseMessageField
+from schema.unions import ResponseUnion
 
 
 class CommentLeaveMutation(graphene.Mutation):

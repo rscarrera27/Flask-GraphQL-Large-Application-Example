@@ -1,8 +1,7 @@
 from mongoengine import connect
-from datetime import datetime
 
-from app.model.account import AccountModel
-from app.model.post import PostModel
+from model.account import AccountModel
+from model.post import PostModel, CommentModel
 
 
 class Mongo:

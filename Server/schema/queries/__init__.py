@@ -1,8 +1,8 @@
 import graphene
 
-from app.schema.unions import AccountUnion, PostUnion
-from app.schema.queries.post import resolve_post
-from app.schema.queries.account import resolve_account
+from schema.unions import AccountUnion, PostUnion
+from schema.queries.post import resolve_post
+from schema.queries.account import resolve_account
 
 
 class Query(graphene.ObjectType):

@@ -1,7 +1,7 @@
 import graphene
 
-from app.schema.mutations.post import (PostUploadMutation, PostDeleteMutation, CommentLeaveMutation)
-from app.schema.mutations.account import (AuthMutation, RefreshMutation, RegisterMutation)
+from schema.mutations.post import (PostUploadMutation, PostDeleteMutation, CommentLeaveMutation)
+from schema.mutations.account import (AuthMutation, RefreshMutation, RegisterMutation)
 
 
 class Mutation(graphene.ObjectType):
