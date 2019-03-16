@@ -39,7 +39,7 @@ This repository implemented minitwit to cover examples. Use the following comman
 
 ```sh
 pip install -r requirements.txt
-python run_server.py
+python server.py
 ```
 GraphiQL enabled by default.
 
