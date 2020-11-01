@@ -23,7 +23,7 @@ all essential use examples have been covered and advanced use examples will be a
     - [ ] MySQL(SQLAlchemy, PeeWee) example
 
     
-## Project defendencies
+## Project dependencies
 - GraphQL framework
     - Graphene
 - HTTP serving
