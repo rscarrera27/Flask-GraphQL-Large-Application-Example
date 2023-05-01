@@ -1,6 +1,6 @@
 aniso8601==3.0.2
 click==6.7
-Flask==1.0.2
+Flask==2.3.2
 Flask-GraphQL==2.0.0
 Flask-GraphQL-Auth==1.1
 Flask-JWT-Extended==3.8.1
